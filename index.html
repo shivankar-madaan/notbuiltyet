@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotBuiltYet — AI Ideas Too Good To Not Exist</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface-2: #1c1c1c;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --text-dim: #888;
+    --accent: #c8ff00;
+    --accent-dim: #c8ff0020;
+    --accent-mid: #c8ff0040;
+    --orange: #ff6b35;
+    --blue: #4ecdc4;
+    --pink: #ff6b9d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,10,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-mid); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 8px transparent; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: transform 0.2s, box-shadow 0.3s !important;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px var(--accent-mid);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 2.5rem 4rem;
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    width: fit-content;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .hero-badge span {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    font-weight: 400;
+    max-width: 900px;
+    animation: fadeUp 0.8s ease-out 0.1s both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+    position: relative;
+  }
+
+  .hero-sub {
+    font-size: 1.25rem;
+    color: var(--text-dim);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-top: 2rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease-out 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+    animation: fadeUp 0.8s ease-out 0.3s both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px var(--accent-mid);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--text-dim);
+    background: var(--surface);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s ease-out 0.4s both;
+  }
+
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* HOW IT WORKS */
+  .section {
+    padding: 6rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    max-width: 700px;
+    line-height: 1.1;
+    margin-bottom: 4rem;
+  }
+
+  /* PROCESS STEPS */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .process-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: all 0.4s;
+    overflow: hidden;
+  }
+
+  .process-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .process-card:hover::before { opacity: 1; }
+  .process-card:hover { border-color: var(--accent-dim); transform: translateY(-4px); }
+
+  .process-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .process-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .process-card p {
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-size: 0.9rem;
+  }
+
+  /* FEATURED IDEAS */
+  .ideas-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 0;
+  }
+
+  .ideas-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 0;
+  }
+
+  .idea-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    transition: all 0.4s;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .idea-card:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-3px);
+  }
+
+  .idea-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+  }
+
+  .idea-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .idea-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-health { background: #4ecdc420; color: #4ecdc4; }
+  .tag-agri { background: #c8ff0020; color: var(--accent); }
+  .tag-edu { background: #ff6b9d20; color: #ff6b9d; }
+  .tag-infra { background: #ff6b3520; color: #ff6b35; }
+  .tag-finance { background: #60a5fa20; color: #60a5fa; }
+  .tag-env { background: #34d39920; color: #34d399; }
+  .tag-logistics { background: #a78bfa20; color: #a78bfa; }
+  .tag-other { background: #94a3b820; color: #94a3b8; }
+
+  .idea-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .idea-viability {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .idea-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .idea-card p {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .idea-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  .idea-improvement {
+    font-family: 'Space Mono', monospace;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .idea-improvement strong {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  .idea-votes {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .idea-moat {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .moat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+
+  .moat-data {
+    color: #a78bfa;
+    background: #a78bfa12;
+    border-color: #a78bfa30;
+  }
+
+  .moat-network {
+    color: #60a5fa;
+    background: #60a5fa12;
+    border-color: #60a5fa30;
+  }
+
+  .moat-regulatory {
+    color: #f97316;
+    background: #f9731612;
+    border-color: #f9731630;
+  }
+
+  .moat-technical {
+    color: #14b8a6;
+    background: #14b8a612;
+    border-color: #14b8a630;
+  }
+
+  .moat-domain {
+    color: #f472b6;
+    background: #f472b612;
+    border-color: #f472b630;
+  }
+
+  .moat-first-mover {
+    color: #facc15;
+    background: #facc1512;
+    border-color: #facc1530;
+  }
+
+  .moat-integration {
+    color: #34d399;
+    background: #34d39912;
+    border-color: #34d39930;
+  }
+
+  .moat-icon {
+    font-size: 0.75rem;
+  }
+
+  .idea-defensibility {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  .defensibility-bar {
+    display: flex;
+    gap: 3px;
+  }
+
+  .defensibility-bar span {
+    width: 14px;
+    height: 5px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+
+  .defensibility-bar span.filled {
+    background: var(--accent);
+  }
+
+  .defensibility-bar span.filled-mid {
+    background: #facc15;
+  }
+
+  .moat-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem 1.2rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .moat-legend-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    width: 100%;
+    margin-bottom: 0.3rem;
+  }
+
+  /* WHY SECTION */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .why-content p {
+    color: var(--text-dim);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .manifesto-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 3rem;
+    position: relative;
+  }
+
+  .manifesto-box::before {
+    content: '"';
+    font-family: 'Instrument Serif', serif;
+    font-size: 8rem;
+    color: var(--accent);
+    opacity: 0.15;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+
+  .manifesto-box p {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--text);
+    position: relative;
+  }
+
+  /* CONTRIBUTE CTA */
+  .contribute {
+    text-align: center;
+    padding: 8rem 2.5rem;
+    position: relative;
+  }
+
+  .contribute::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-dim), transparent 70%);
+    pointer-events: none;
+  }
+
+  .contribute h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .contribute p {
+    color: var(--text-dim);
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .contribute-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--text); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .process-grid { grid-template-columns: 1fr; }
+    .ideas-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .hero, .section, .contribute { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .ideas-inner { padding: 0 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .hero-actions { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    NotBuiltYet
+  </div>
+  <div class="nav-links">
+    <a href="#ideas">Browse Ideas</a>
+    <a href="#how">How It Works</a>
+    <a href="#why">Why</a>
+    <a href="https://github.com/shivankar-madaan/notbuiltyet" class="nav-cta">★ Star on GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span>●</span> Open Source & Community Driven
+  </div>
+  <h1>AI ideas too good to <em>not exist</em></h1>
+  <p class="hero-sub">
+    A community-vetted collection of business ideas enhanced by AI that nobody has built yet. 
+    Real problems. Viable solutions. Open for anyone to build.
+  </p>
+  <div class="hero-actions">
+    <a href="#ideas" class="btn-primary">Browse Ideas →</a>
+    <a href="https://github.com/shivankar-madaan/notbuiltyet/issues/new?template=idea.yml" class="btn-secondary">Submit an Idea</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num" id="stat-vetted">0</div>
+      <div class="stat-label">Vetted Ideas</div>
+    </div>
+    <div>
+      <div class="stat-num" id="stat-building">0</div>
+      <div class="stat-label">Being Built</div>
+    </div>
+    <div>
+      <div class="stat-num" id="stat-launched">0</div>
+      <div class="stat-label">Launched</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-label fade-in">Process</div>
+  <h2 class="section-title fade-in">From raw idea to<br>vetted blueprint</h2>
+  <div class="process-grid">
+    <div class="process-card fade-in">
+      <div class="process-num">01</div>
+      <h3>Identify the problem</h3>
+      <p>Someone spots a real-world inefficiency — something that could be 10% or 90% better with AI. They submit it as an issue on GitHub with context on the problem.</p>
+    </div>
+    <div class="process-card fade-in">
+      <div class="process-num">02</div>
+      <h3>AI-assisted research</h3>
+      <p>The community uses AI to analyze market size, existing solutions, technical feasibility, and potential impact. Everything is documented openly in the repo.</p>
+    </div>
+    <div class="process-card fade-in">
+      <div class="process-num">03</div>
+      <h3>Human vetting</h3>
+      <p>Domain experts and the community vote, critique, and refine. Ideas that survive get a viability score and a detailed blueprint — ready for someone to build.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED IDEAS -->
+<section class="ideas-section" id="ideas">
+  <div class="ideas-inner">
+    <div class="section-label fade-in">Featured Ideas</div>
+    <h2 class="section-title fade-in">What's ready to be built</h2>
+    <div class="moat-legend fade-in">
+      <div class="moat-legend-title">🛡 Moat Types</div>
+      <span class="moat-badge moat-data">Data Moat</span>
+      <span class="moat-badge moat-network">Network Effects</span>
+      <span class="moat-badge moat-regulatory">Regulatory</span>
+      <span class="moat-badge moat-technical">Technical</span>
+      <span class="moat-badge moat-domain">Domain Expertise</span>
+      <span class="moat-badge moat-first-mover">First Mover</span>
+      <span class="moat-badge moat-integration">Integration Depth</span>
+    </div>
+    <div class="ideas-grid" id="ideas-grid">
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS EXISTS -->
+<section class="section" id="why">
+  <div class="why-grid">
+    <div class="why-content">
+      <div class="section-label fade-in">Why This Exists</div>
+      <h2 class="section-title fade-in">The world doesn't need more AI doomerism</h2>
+      <p class="fade-in">
+        Everyone's talking about what AI will destroy. We're focused on what it can build. 
+        There are thousands of real, viable business ideas where AI could make things 
+        10%, 50%, or 90% better — and nobody is building them yet.
+      </p>
+      <p class="fade-in">
+        This project is proof that AI can improve real lives. Every idea here has been 
+        researched with AI and vetted by humans. If something gets built from this repo, 
+        that's one more concrete example that the future is worth building toward.
+      </p>
+    </div>
+    <div class="manifesto-box fade-in">
+      <p>The best argument against AI pessimism isn't a think piece — it's a product that makes someone's life better. We're building the launchpad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="contribute">
+  <div class="section-label fade-in">Get Involved</div>
+  <h2 class="fade-in">This is open source.<br>This is <em style="font-family: 'Instrument Serif', serif; color: var(--accent);">yours</em>.</h2>
+  <p class="fade-in">
+    Submit an idea. Vote on existing ones. Add domain expertise. 
+    Or just take one and build it. No permission needed.
+  </p>
+  <div class="contribute-actions fade-in">
+    <a href="https://github.com/shivankar-madaan/notbuiltyet" class="btn-primary">★ Star on GitHub</a>
+    <a href="https://github.com/shivankar-madaan/notbuiltyet/issues/new?template=idea.yml" class="btn-secondary">Submit an Idea</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>NotBuiltYet © 2026 — Open Source under MIT License</span>
+  <div class="footer-links">
+    <a href="https://github.com/shivankar-madaan/notbuiltyet">GitHub</a>
+    <a href="#">Discord</a>
+    <a href="#">Twitter</a>
+    <a href="#">RSS</a>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Dynamic idea loading from ideas.json
+  function defensibilityLevel(name) {
+    const levels = { 'Very High': 5, 'High': 4, 'Medium': 3, 'Low': 2 };
+    return levels[name] || 3;
+  }
+
+  function defensibilityBarClass(name) {
+    const level = defensibilityLevel(name);
+    return level >= 4 ? 'filled' : 'filled-mid';
+  }
+
+  function renderCard(idea) {
+    const moatsHtml = idea.moats.map(m =>
+      `<span class="moat-badge ${m.cssClass}"><span class="moat-icon">\u{1F6E1}</span> ${m.name}</span>`
+    ).join('');
+
+    const level = defensibilityLevel(idea.defensibility);
+    const barClass = defensibilityBarClass(idea.defensibility);
+    const barsHtml = Array.from({ length: 5 }, (_, i) =>
+      `<span class="${i < level ? barClass : ''}"></span>`
+    ).join('');
+
+    return `<a href="${idea.url}" target="_blank" rel="noopener" class="idea-card-link">
+      <div class="idea-card fade-in">
+        <div class="idea-header">
+          <div class="idea-tags">
+            <span class="idea-tag ${idea.categoryClass}">${idea.category}</span>
+          </div>
+          <span class="idea-viability">${idea.viability}% viable</span>
+        </div>
+        <h3>${idea.title}</h3>
+        <p>${idea.description}</p>
+        <div class="idea-moat">${moatsHtml}</div>
+        <div class="idea-meta">
+          <div class="idea-improvement">
+            <strong>${idea.improvement}</strong>
+          </div>
+          <div class="idea-defensibility">
+            Moat:
+            <div class="defensibility-bar">${barsHtml}</div>
+            ${idea.defensibility}
+          </div>
+          <div class="idea-votes">\u25B2 ${idea.votes}</div>
+        </div>
+      </div>
+    </a>`;
+  }
+
+  async function loadIdeas() {
+    try {
+      const res = await fetch('ideas.json');
+      if (!res.ok) return;
+      const data = await res.json();
+
+      // Update stats
+      const statVetted = document.getElementById('stat-vetted');
+      const statBuilding = document.getElementById('stat-building');
+      const statLaunched = document.getElementById('stat-launched');
+      if (statVetted) statVetted.textContent = data.stats.vetted;
+      if (statBuilding) statBuilding.textContent = data.stats.beingBuilt;
+      if (statLaunched) statLaunched.textContent = data.stats.launched;
+
+      // Render cards
+      const grid = document.getElementById('ideas-grid');
+      if (grid && data.ideas.length > 0) {
+        grid.innerHTML = data.ideas.map(renderCard).join('');
+        // Re-observe new fade-in elements
+        grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+      }
+    } catch (e) {
+      // ideas.json not available yet — silent fail
+    }
+  }
+
+  loadIdeas();
+</script>
+
+</body>
+</html>

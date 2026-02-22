@@ -1,0 +1,80 @@
+name: Submit an Idea
+description: Submit a vetted AI business idea for the community
+labels: ["idea"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Healthcare
+        - Agriculture
+        - Education
+        - Infrastructure
+        - Finance
+        - Environment
+        - Logistics
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: Idea Title
+      placeholder: "e.g. AI-Powered Water Pipe Leak Detection"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem & Solution
+      placeholder: "Describe the problem this solves and how AI makes it possible..."
+    validations:
+      required: true
+
+  - type: input
+    id: improvement
+    attributes:
+      label: Estimated Improvement
+      placeholder: "e.g. ~60% improvement over current"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: moats
+    attributes:
+      label: Competitive Moats
+      options:
+        - label: Data Moat
+        - label: Network Effects
+        - label: Regulatory
+        - label: Technical
+        - label: Domain Expertise
+        - label: First Mover
+        - label: Integration Depth
+
+  - type: dropdown
+    id: viability
+    attributes:
+      label: Viability Estimate
+      options:
+        - "90-100%"
+        - "75-89%"
+        - "50-74%"
+        - "25-49%"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: defensibility
+    attributes:
+      label: Overall Defensibility
+      options:
+        - Very High
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true

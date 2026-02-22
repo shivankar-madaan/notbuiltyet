@@ -1,0 +1,75 @@
+{
+  "stats": {
+    "vetted": 4,
+    "beingBuilt": 1,
+    "launched": 0
+  },
+  "ideas": [
+    {
+      "id": 1,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/1",
+      "title": "AI Medication Interaction Checker for Elderly Polypharmacy",
+      "category": "Healthcare",
+      "categoryClass": "tag-health",
+      "description": "An app that cross-references all medications an elderly person takes, flags dangerous interactions their doctors might miss across separate prescriptions, and suggests safer alternatives \u2014 trained on real pharmacological data.",
+      "improvement": "~60% improvement over current",
+      "moats": [
+        { "name": "Data Moat", "cssClass": "moat-data" },
+        { "name": "Regulatory", "cssClass": "moat-regulatory" }
+      ],
+      "viability": 92,
+      "defensibility": "High",
+      "votes": 284
+    },
+    {
+      "id": 2,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/2",
+      "title": "Satellite + AI Crop Disease Early Warning for Smallholder Farms",
+      "category": "Agriculture",
+      "categoryClass": "tag-agri",
+      "description": "Combining freely available satellite imagery with on-device AI to detect crop diseases 2-3 weeks before they're visible to the eye, delivered via SMS to farmers without smartphones in developing regions.",
+      "improvement": "~40% reduction in crop loss",
+      "moats": [
+        { "name": "Data Moat", "cssClass": "moat-data" },
+        { "name": "First Mover", "cssClass": "moat-first-mover" },
+        { "name": "Domain Expertise", "cssClass": "moat-domain" }
+      ],
+      "viability": 87,
+      "defensibility": "Medium",
+      "votes": 412
+    },
+    {
+      "id": 3,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/3",
+      "title": "Adaptive Textbook That Rewrites Itself for Each Student",
+      "category": "Education",
+      "categoryClass": "tag-edu",
+      "description": "An open-source textbook engine that uses AI to detect a student's knowledge gaps from their interactions and dynamically adjusts explanations, examples, and difficulty \u2014 essentially a textbook that teaches differently for every reader.",
+      "improvement": "~35% better learning outcomes",
+      "moats": [
+        { "name": "Network Effects", "cssClass": "moat-network" },
+        { "name": "Data Moat", "cssClass": "moat-data" }
+      ],
+      "viability": 78,
+      "defensibility": "Medium",
+      "votes": 198
+    },
+    {
+      "id": 4,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/4",
+      "title": "AI-Powered Water Pipe Leak Detection via Sound Analysis",
+      "category": "Infrastructure",
+      "categoryClass": "tag-infra",
+      "description": "Deploy cheap acoustic sensors on municipal water pipes and use AI to detect micro-leaks by sound signature before they become pipe bursts. Cities lose 20-30% of water to leaks \u2014 this could cut that dramatically.",
+      "improvement": "~50% reduction in water waste",
+      "moats": [
+        { "name": "Technical", "cssClass": "moat-technical" },
+        { "name": "Integration Depth", "cssClass": "moat-integration" },
+        { "name": "Data Moat", "cssClass": "moat-data" }
+      ],
+      "viability": 81,
+      "defensibility": "Very High",
+      "votes": 356
+    }
+  ]
+}
