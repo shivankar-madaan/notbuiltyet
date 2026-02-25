@@ -69,6 +69,55 @@ function extractMoats(text) {
   return moats;
 }
 
+function stripMarkdown(text) {
+  if (!text) return '';
+  let clean = text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1');
+  clean = clean.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+  clean = clean.replace(/^#+\s+/gm, '');
+  clean = clean.replace(/^[\s]*[-*]\s+/gm, '');
+  clean = clean.replace(/^[\s]*\d+\.\s+/gm, '');
+  clean = clean.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+  return clean;
+}
+
+function truncate(text, maxLen) {
+  if (text.length <= maxLen) return text;
+  return text.slice(0, maxLen).replace(/\s+\S*$/, '') + '...';
+}
+
+function parseDescription(text, full = false) {
+  if (!text) return { problem: '', solution: '', why: '' };
+
+  // Try to extract subsections by bold headings like **The Problem**, **The Solution**, etc.
+  const sectionPattern = /\*\*(?:The\s+)?(Problem|Solution|Why\s+This\s+Matters)[:\s]*\*\*/gi;
+  const matches = [...text.matchAll(sectionPattern)];
+
+  let problem = '';
+  let solution = '';
+  let why = '';
+
+  if (matches.length >= 2) {
+    // Extract text between matched headings
+    for (let i = 0; i < matches.length; i++) {
+      const start = matches[i].index + matches[i][0].length;
+      const end = i + 1 < matches.length ? matches[i + 1].index : text.length;
+      const content = stripMarkdown(text.slice(start, end));
+      const label = matches[i][1].toLowerCase();
+      if (label === 'problem') problem = full ? content : truncate(content, 150);
+      else if (label === 'solution') solution = full ? content : truncate(content, 150);
+      else why = full ? content : truncate(content, 150);
+    }
+  } else {
+    // Fallback: split by paragraphs
+    const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim());
+    if (paragraphs.length >= 1) problem = full ? stripMarkdown(paragraphs[0]) : truncate(stripMarkdown(paragraphs[0]), 150);
+    if (paragraphs.length >= 2) solution = full ? stripMarkdown(paragraphs[1]) : truncate(stripMarkdown(paragraphs[1]), 150);
+    if (paragraphs.length >= 3) why = full ? stripMarkdown(paragraphs[2]) : truncate(stripMarkdown(paragraphs[2]), 150);
+  }
+
+  return { problem, solution, why };
+}
+
 function extractViability(text) {
   if (!text) return 0;
   const match = text.match(/(\d+)\s*-\s*(\d+)%/);
@@ -118,7 +167,8 @@ async function main() {
 
     const category = (sections['Category'] || 'Other').replace(/\s*\n.*/s, '').trim();
     const title = (sections['Idea Title'] || issue.title).replace(/\s*\n.*/s, '').trim();
-    const description = sections['Problem & Solution'] || '';
+    const description = parseDescription(sections['Problem & Solution'] || '');
+    const fullDescription = parseDescription(sections['Problem & Solution'] || '', true);
     const improvement = (sections['Estimated Improvement'] || '').replace(/\s*\n.*/s, '').trim();
     const moats = extractMoats(sections['Competitive Moats']);
     const viability = extractViability(sections['Viability Estimate'] || '');
@@ -132,6 +182,7 @@ async function main() {
       category,
       categoryClass: categoryTagClass[category] || 'tag-other',
       description,
+      fullDescription,
       improvement,
       moats,
       viability,

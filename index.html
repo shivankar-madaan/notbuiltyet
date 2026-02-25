@@ -408,11 +408,27 @@
     line-height: 1.3;
   }
 
-  .idea-card p {
+  .idea-desc {
+    margin-bottom: 1.5rem;
+  }
+
+  .idea-desc-section {
     color: var(--text-dim);
     font-size: 0.88rem;
     line-height: 1.7;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .idea-desc-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .idea-desc-section strong {
+    color: var(--text);
   }
 
   .idea-meta {
@@ -693,6 +709,151 @@
     transform: translateY(0);
   }
 
+  /* MODAL */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.25s ease;
+  }
+
+  .modal-backdrop.active .modal-content {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 1.4rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+
+  .modal-close:hover {
+    color: var(--text);
+    border-color: var(--text-dim);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+    padding-right: 2.5rem;
+  }
+
+  .modal-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 1.8rem;
+  }
+
+  .modal-body {
+    margin-bottom: 1.8rem;
+  }
+
+  .modal-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .modal-section h4 {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-section p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .modal-moats {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text);
+    padding: 0.7rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .modal-github:hover {
+    border-color: var(--text-dim);
+    background: var(--surface-2);
+  }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .process-grid { grid-template-columns: 1fr; }
@@ -837,6 +998,22 @@
   </div>
 </section>
 
+<!-- MODAL -->
+<div class="modal-backdrop" id="idea-modal">
+  <div class="modal-content">
+    <button class="modal-close">&times;</button>
+    <div class="modal-header">
+      <div class="idea-tags" id="modal-tags"></div>
+      <span class="idea-viability" id="modal-viability"></span>
+    </div>
+    <h2 class="modal-title" id="modal-title"></h2>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-moats" id="modal-moats"></div>
+    <div class="modal-meta" id="modal-meta"></div>
+    <a href="#" class="modal-github" id="modal-github" target="_blank" rel="noopener">View on GitHub →</a>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <span>NotBuiltYet © 2026 — Open Source under MIT License</span>
@@ -872,6 +1049,8 @@
   });
 
   // Dynamic idea loading from ideas.json
+  let ideasData = [];
+
   function defensibilityLevel(name) {
     const levels = { 'Very High': 5, 'High': 4, 'Medium': 3, 'Low': 2 };
     return levels[name] || 3;
@@ -893,8 +1072,7 @@
       `<span class="${i < level ? barClass : ''}"></span>`
     ).join('');
 
-    return `<a href="${idea.url}" target="_blank" rel="noopener" class="idea-card-link">
-      <div class="idea-card fade-in">
+    return `<div class="idea-card fade-in" data-idea-id="${idea.id}">
         <div class="idea-header">
           <div class="idea-tags">
             <span class="idea-tag ${idea.categoryClass}">${idea.category}</span>
@@ -902,7 +1080,11 @@
           <span class="idea-viability">${idea.viability}% viable</span>
         </div>
         <h3>${idea.title}</h3>
-        <p>${idea.description}</p>
+        <div class="idea-desc">
+          ${idea.description.problem ? `<div class="idea-desc-section"><strong>The Problem:</strong> ${idea.description.problem}</div>` : ''}
+          ${idea.description.solution ? `<div class="idea-desc-section"><strong>The Solution:</strong> ${idea.description.solution}</div>` : ''}
+          ${idea.description.why ? `<div class="idea-desc-section"><strong>Why This Matters:</strong> ${idea.description.why}</div>` : ''}
+        </div>
         <div class="idea-moat">${moatsHtml}</div>
         <div class="idea-meta">
           <div class="idea-improvement">
@@ -915,15 +1097,84 @@
           </div>
           <div class="idea-votes">\u25B2 ${idea.votes}</div>
         </div>
-      </div>
-    </a>`;
+      </div>`;
   }
+
+  // Modal logic
+  const modal = document.getElementById('idea-modal');
+
+  function openModal(idea) {
+    const desc = idea.fullDescription || idea.description;
+
+    document.getElementById('modal-tags').innerHTML =
+      `<span class="idea-tag ${idea.categoryClass}">${idea.category}</span>`;
+    document.getElementById('modal-viability').textContent = `${idea.viability}% viable`;
+    document.getElementById('modal-title').textContent = idea.title;
+
+    let bodyHtml = '';
+    if (desc.problem) bodyHtml += `<div class="modal-section"><h4>The Problem</h4><p>${desc.problem}</p></div>`;
+    if (desc.solution) bodyHtml += `<div class="modal-section"><h4>The Solution</h4><p>${desc.solution}</p></div>`;
+    if (desc.why) bodyHtml += `<div class="modal-section"><h4>Why This Matters</h4><p>${desc.why}</p></div>`;
+    document.getElementById('modal-body').innerHTML = bodyHtml;
+
+    document.getElementById('modal-moats').innerHTML = idea.moats.map(m =>
+      `<span class="moat-badge ${m.cssClass}"><span class="moat-icon">\u{1F6E1}</span> ${m.name}</span>`
+    ).join('');
+
+    const level = defensibilityLevel(idea.defensibility);
+    const barClass = defensibilityBarClass(idea.defensibility);
+    const barsHtml = Array.from({ length: 5 }, (_, i) =>
+      `<span class="${i < level ? barClass : ''}"></span>`
+    ).join('');
+
+    document.getElementById('modal-meta').innerHTML = `
+      <div class="idea-improvement"><strong>${idea.improvement}</strong></div>
+      <div class="idea-defensibility">
+        Moat: <div class="defensibility-bar">${barsHtml}</div> ${idea.defensibility}
+      </div>
+      <div class="idea-votes">\u25B2 ${idea.votes}</div>
+    `;
+
+    const ghLink = document.getElementById('modal-github');
+    ghLink.href = idea.url;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on backdrop click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on X button
+  modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+  });
+
+  // Event delegation for card clicks
+  document.getElementById('ideas-grid').addEventListener('click', (e) => {
+    const card = e.target.closest('.idea-card');
+    if (!card) return;
+    const id = parseInt(card.dataset.ideaId, 10);
+    const idea = ideasData.find(i => i.id === id);
+    if (idea) openModal(idea);
+  });
 
   async function loadIdeas() {
     try {
       const res = await fetch('ideas.json');
       if (!res.ok) return;
       const data = await res.json();
+      ideasData = data.ideas;
 
       // Update stats
       const statVetted = document.getElementById('stat-vetted');
