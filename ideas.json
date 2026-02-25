@@ -1,10 +1,49 @@
 {
   "stats": {
-    "vetted": 1,
+    "vetted": 2,
     "beingBuilt": 0,
     "launched": 0
   },
   "ideas": [
+    {
+      "id": 2,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/2",
+      "title": "AI-Powered Asteroid Prospecting Platform — Composition Intelligence from Public Survey Data",
+      "category": "Other",
+      "categoryClass": "tag-other",
+      "description": {
+        "problem": "The asteroid mining industry is emerging fast — multiple startups are racing to extract resources from near-Earth asteroids. But they all face the...",
+        "solution": "An AI-native asteroid prospecting platform that fuses public data from NASA (NeoWs, JPL SBDB), ESA, JAXA, GAIA spacecraft, and ground-based surveys...",
+        "why": "Asteroid resources represent a multi-trillion dollar frontier — a single metallic asteroid can contain more platinum-group metals than ever mined on..."
+      },
+      "fullDescription": {
+        "problem": "The asteroid mining industry is emerging fast — multiple startups are racing to extract resources from near-Earth asteroids. But they all face the same bottleneck: we know where asteroids are (NASA tracks 30,000+ NEOs), but we barely know what they're made of. Spectral data exists for only a fraction of known asteroids, and even when it does, going from \"S-type classification\" to \"estimated platinum content\" is unreliable. The best public tool for this was built in 2012 with naive heuristics and appears unmaintained. Composition prediction from sparse spectral data remains a hard, unsolved problem — current ML models only achieve ~92% accuracy on broad taxonomic groups and routinely confuse critical categories (C-type vs X-type). Mining companies are making multi-million dollar mission decisions with terrible geological intelligence.",
+        "solution": "An AI-native asteroid prospecting platform that fuses public data from NASA (NeoWs, JPL SBDB), ESA, JAXA, GAIA spacecraft, and ground-based surveys to build the most comprehensive composition intelligence layer for asteroids. Modern ML models trained on meteorite spectra, orbital family membership, albedo, and multi-parameter constraints to predict composition where spectral data is sparse or missing. Each asteroid gets an economic viability score combining estimated resource value, delta-v accessibility, launch window frequency, rotation rate, and size. Real-time updates as new survey data arrives. Essentially the Bloomberg Terminal for asteroid mining — the intelligence layer that every mining company needs but none are building as a standalone product.",
+        "why": "Asteroid resources represent a multi-trillion dollar frontier — a single metallic asteroid can contain more platinum-group metals than ever mined on Earth. But this industry can't scale on guesswork. The companies launching missions need reliable geological intelligence the same way terrestrial mining companies rely on geological surveys before drilling. By making this intelligence accessible, this platform accelerates the entire space mining industry, lowers the cost of bad bets, and helps humanity access the resources needed for long-term civilizational growth beyond Earth. The data is already public and free — the AI interpretation layer is what's missing."
+      },
+      "improvement": "~10-100x better composition prediction coverage vs current public tools (existing tools cover 600K asteroids with rough heuristics; modern ML can provide probabilistic composition estimates for all 30K+ NEOs with confidence scores)",
+      "moats": [
+        {
+          "name": "Data Moat",
+          "cssClass": "moat-data"
+        },
+        {
+          "name": "Technical",
+          "cssClass": "moat-technical"
+        },
+        {
+          "name": "Domain Expertise",
+          "cssClass": "moat-domain"
+        },
+        {
+          "name": "First Mover",
+          "cssClass": "moat-first-mover"
+        }
+      ],
+      "viability": 62,
+      "defensibility": "High",
+      "votes": 0
+    },
     {
       "id": 1,
       "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/1",
