@@ -1,8 +1,43 @@
 {
   "stats": {
-    "vetted": 0,
+    "vetted": 1,
     "beingBuilt": 0,
     "launched": 0
   },
-  "ideas": []
+  "ideas": [
+    {
+      "id": 1,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/1",
+      "title": "AI-Powered Construction Site Progress Monitoring Platform",
+      "category": "Infrastructure",
+      "categoryClass": "tag-infra",
+      "description": "**The Problem:**\nConstruction is one of the least digitized industries in the world, and it shows. Projects routinely run over budget and behind schedule — globally, large construction projects average 80% over budget and 20 months behind schedule. The consequences ripple through society:\n\n- **Wasted resources**: Delays and rework waste materials, energy, and human labor on a massive scale\n- **Safety failures**: Construction remains one of the most dangerous industries. Poor site monitoring means safety violations (missing PPE, improper scaffolding, unsecured zones) go undetected until someone gets hurt\n- **Accountability gaps**: Progress is tracked through subjective site visits and inconsistent photo documentation — there's no reliable, quantifiable way to know if a project is on track\n- **Infrastructure bottlenecks**: Hospitals, schools, housing, and public infrastructure projects get delayed for years, directly impacting the communities waiting for them\n- **Fraud and misreporting**: Without verifiable progress data, misrepresentation of construction status is difficult to detect — affecting public projects and aid-funded developments in particular\n\n**The Solution:**\n\nA platform that uses drone and satellite imagery combined with computer vision to automatically monitor construction sites — turning raw visual data into objective, quantifiable progress metrics.\n\n**How It Works:**\n\n1. **Data Collection** — Drones capture high-resolution aerial footage on a regular schedule. Freely available satellite imagery (Sentinel-2, Landsat) supplements with continuous coverage\n2. **AI Analysis** — Computer vision models detect and quantify structural progress (foundation, floors, walls), material stockpiles, equipment activity, and critically — safety violations like missing barriers or workers without protective equipment\n3. **Transparency & Alerts** — Automated reports with visual before/after comparisons, real-time dashboards showing objective completion metrics, and immediate alerts when progress deviates from plan or safety issues are detected\n\n**Why This Matters:**\n\n- Makes construction **safer** by catching safety violations in near real-time instead of after an accident\n- Makes public infrastructure projects **accountable** with verifiable, objective progress data\n- Reduces **waste** by catching deviations early when course-correction is still cheap\n- Enables **transparency** for aid-funded and government projects where misreporting is a real problem\n- Helps close the **infrastructure gap** in developing regions by making project oversight scalable and affordable",
+      "improvement": "~70% reduction in manual inspection overhead, 3-5x faster deviation and safety violation detection",
+      "moats": [
+        {
+          "name": "Data Moat",
+          "cssClass": "moat-data"
+        },
+        {
+          "name": "Technical",
+          "cssClass": "moat-technical"
+        },
+        {
+          "name": "Domain Expertise",
+          "cssClass": "moat-domain"
+        },
+        {
+          "name": "First Mover",
+          "cssClass": "moat-first-mover"
+        },
+        {
+          "name": "Integration Depth",
+          "cssClass": "moat-integration"
+        }
+      ],
+      "viability": 82,
+      "defensibility": "High",
+      "votes": 0
+    }
+  ]
 }
