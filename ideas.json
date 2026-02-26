@@ -1,10 +1,53 @@
 {
   "stats": {
-    "vetted": 3,
+    "vetted": 4,
     "beingBuilt": 0,
     "launched": 0
   },
   "ideas": [
+    {
+      "id": 4,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/4",
+      "title": "Planetary-Scale Land Intelligence Engine — AI-Powered Natural Capital Assessment",
+      "category": "Environment",
+      "categoryClass": "tag-env",
+      "description": {
+        "problem": "Countries are under immense pressure to meet \"30x30\" targets (protecting 30% of land by 2030), unlock billions in carbon credits, and hit net-zero...",
+        "solution": "A \"Google Maps for Natural Capital\" — an AI platform that ingests every available open data source (satellite imagery, SAR radar, LiDAR, soil...",
+        "why": "Intelligence-led planting achieves 80% survival vs 10–20% for random planting — 4x lower CAPEX for the same outcome The platform doesn't plant trees..."
+      },
+      "fullDescription": {
+        "problem": "Countries are under immense pressure to meet \"30x30\" targets (protecting 30% of land by 2030), unlock billions in carbon credits, and hit net-zero commitments — but they have no idea where to start. For any given piece of land, nobody can answer the basic question: \"What is the highest-value ecological intervention here, and what's the ROI?\" Reforestation today is shockingly unintelligent. Organizations plant trees in random locations with 10–20% survival rates, using species poorly matched to soil and climate conditions. Carbon credit projects get funded with no forward-looking climate analysis — trees planted today need to survive in a climate that's 1–2°C warmer with different rainfall patterns by 2050, but almost nobody models this. Urban planners don't know which 500 meters of tree canopy would reduce peak electricity load by megawatts. Insurance companies can't quantify how upstream forest restoration reduces downstream flood claims. The data to answer all of these questions exists — free satellite imagery (Sentinel-2, Landsat), global soil databases (SoilGrids, SSURGO), biodiversity records (GBIF — 2+ billion observations), climate projections (CMIP6), LiDAR terrain data, and dozens more — but it's fragmented across hundreds of institutions, in incompatible formats, and nobody has built the intelligence layer that fuses it all into actionable decisions.",
+        "solution": "A \"Google Maps for Natural Capital\" — an AI platform that ingests every available open data source (satellite imagery, SAR radar, LiDAR, soil databases, climate projections, biodiversity records, land ownership, hydrology, air quality) and produces a comprehensive ecological-economic score for every 10m x 10m pixel of land on Earth. The platform runs six core intelligence modules: Land Suitability Scoring — For every pixel: slope, soil depth/pH/drainage, water availability, current land cover, contamination risk, legal status, and critically — forward-looking climate suitability for 2050, not just current conditions. Output: a 0–100 suitability score decomposed into sub-scores. Species Recommendation Engine — Multi-objective optimization that recommends not a single tree but an entire ecological community (canopy species, understory, nitrogen fixers, early colonizers). Species matched to projected 2050 climate envelopes with assisted migration considerations. Uses the TRY Plant Trait Database (12M trait records, 280K species). Ecosystem Services Quantification — The money module. For each site: carbon sequestration trajectory (above-ground, below-ground, soil organic carbon) with monetary value at current credit prices; water services (groundwater recharge in cubic meters, flood risk reduction in avoided damage costs, water quality improvement); biodiversity value (threatened species habitat, corridor connectivity via circuit theory); urban-specific services (cooling in avoided kWh, air quality in health cost savings, stormwater management, property value uplift of 5–15% from mature canopy). Risk Assessment — Fire risk, drought mortality, pest/disease, encroachment probability, political/governance risk, and climate change risk to the planting itself. Produces risk-adjusted ROI — the expected value accounting for probability of failure. Prioritization Engine — Synthesizes everything into ranked opportunities. Clients adjust weighting (water utility weights water, carbon fund weights carbon, city government weights cooling). Specifically flags \"quick wins\": sites where natural regeneration succeeds with just protection, drone seeding is viable, or public land has zero acquisition cost. Monitoring & Verification — Automated satellite-based survival monitoring post-planting, anomaly detection for areas below growth prediction, carbon stock updates, and MRV reports formatted for credit standards (Verra VCS, Gold Standard, ART TREES).",
+        "why": "Intelligence-led planting achieves 80% survival vs 10–20% for random planting — 4x lower CAPEX for the same outcome The platform doesn't plant trees — it sells the \"Reforestation Prospectus\" showing governments and corporations exactly where to invest, with verified ROI projections High-quality removal credits trade at $22–$35/tCO2e vs $5–$10 for unverified avoidance credits — the verification layer alone justifies the platform Urban cooling is quantifiable: a single mature tree provides cooling equivalent to 10 room ACs running 20 hours/day. Cities pay for avoided peak grid load After 5 years of monitoring, the longitudinal dataset of what works where becomes the definitive global reference — essentially impossible to replicate Offshore energy, deep sea mining, and infrastructure companies are legally required to do environmental assessments — the compliance automation market alone is massive The 2026 \"ghost forest\" backlash means the market will pay a huge premium for AI-audited proof that planted trees are still alive and sequestering carbon Can start with two people, a laptop, and free satellite data — then scale to serving every government on Earth"
+      },
+      "improvement": "~4x improvement in tree survival rates (80% vs 10-20%), 90% reduction in site assessment time, ability to quantify ecosystem services (carbon, water, biodiversity, cooling) that are currently unquantified for 99% of land",
+      "moats": [
+        {
+          "name": "Data Moat",
+          "cssClass": "moat-data"
+        },
+        {
+          "name": "Technical",
+          "cssClass": "moat-technical"
+        },
+        {
+          "name": "Domain Expertise",
+          "cssClass": "moat-domain"
+        },
+        {
+          "name": "First Mover",
+          "cssClass": "moat-first-mover"
+        },
+        {
+          "name": "Integration Depth",
+          "cssClass": "moat-integration"
+        }
+      ],
+      "viability": 82,
+      "defensibility": "Very High",
+      "votes": 0
+    },
     {
       "id": 3,
       "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/3",
