@@ -854,6 +854,115 @@
     background: var(--surface-2);
   }
 
+  /* SUBMIT FORM MODAL */
+  .submit-form-modal .modal-content {
+    max-width: 640px;
+  }
+
+  .submit-form-modal .modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .submit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group select,
+  .form-group input,
+  .form-group textarea {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-group select:focus,
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.2rem;
+    cursor: pointer;
+  }
+
+  .form-group select option {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  .form-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .form-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    cursor: pointer;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .form-checkboxes label:has(input:checked) {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--accent-dim);
+  }
+
+  .form-checkboxes input[type="checkbox"] {
+    width: auto;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .submit-form .btn-primary {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .process-grid { grid-template-columns: 1fr; }
@@ -898,7 +1007,7 @@
   </p>
   <div class="hero-actions">
     <a href="#ideas" class="btn-primary">Browse Ideas →</a>
-    <a href="https://github.com/shivankar-madaan/notbuiltyet/issues/new?template=idea.yml" class="btn-secondary">Submit an Idea</a>
+    <button class="btn-secondary" onclick="openSubmitModal()">Submit an Idea</button>
   </div>
   <div class="hero-stats">
     <div>
@@ -992,7 +1101,7 @@
   </p>
   <div class="contribute-actions fade-in">
     <a href="https://github.com/shivankar-madaan/notbuiltyet" class="btn-primary">★ Star on GitHub</a>
-    <a href="https://github.com/shivankar-madaan/notbuiltyet/issues/new?template=idea.yml" class="btn-secondary">Submit an Idea</a>
+    <button class="btn-secondary" onclick="openSubmitModal()">Submit an Idea</button>
   </div>
 </section>
 
@@ -1009,6 +1118,75 @@
     <div class="modal-moats" id="modal-moats"></div>
     <div class="modal-meta" id="modal-meta"></div>
     <a href="#" class="modal-github" id="modal-github" target="_blank" rel="noopener">View on GitHub →</a>
+  </div>
+</div>
+
+<!-- SUBMIT FORM MODAL -->
+<div class="modal-backdrop submit-form-modal" id="submit-modal">
+  <div class="modal-content">
+    <button class="modal-close">&times;</button>
+    <h2 class="modal-title">Submit an Idea</h2>
+    <form class="submit-form" id="submit-form">
+      <div class="form-group">
+        <label for="sf-category">Category *</label>
+        <select id="sf-category" required>
+          <option value="" disabled selected>Select a category</option>
+          <option>Healthcare</option>
+          <option>Agriculture</option>
+          <option>Education</option>
+          <option>Infrastructure</option>
+          <option>Finance</option>
+          <option>Environment</option>
+          <option>Logistics</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sf-title">Idea Title *</label>
+        <input id="sf-title" type="text" placeholder="e.g. AI-Powered Water Pipe Leak Detection" required>
+      </div>
+      <div class="form-group">
+        <label for="sf-description">Problem & Solution *</label>
+        <textarea id="sf-description" placeholder="Describe the problem this solves and how AI makes it possible..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="sf-improvement">Estimated Improvement *</label>
+        <input id="sf-improvement" type="text" placeholder="e.g. ~60% improvement over current" required>
+      </div>
+      <div class="form-group">
+        <label>Competitive Moats</label>
+        <div class="form-checkboxes">
+          <label><input type="checkbox" name="moats" value="Data Moat"> Data Moat</label>
+          <label><input type="checkbox" name="moats" value="Network Effects"> Network Effects</label>
+          <label><input type="checkbox" name="moats" value="Regulatory"> Regulatory</label>
+          <label><input type="checkbox" name="moats" value="Technical"> Technical</label>
+          <label><input type="checkbox" name="moats" value="Domain Expertise"> Domain Expertise</label>
+          <label><input type="checkbox" name="moats" value="First Mover"> First Mover</label>
+          <label><input type="checkbox" name="moats" value="Integration Depth"> Integration Depth</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sf-viability">Viability Estimate *</label>
+        <select id="sf-viability" required>
+          <option value="" disabled selected>Select viability range</option>
+          <option>90-100%</option>
+          <option>75-89%</option>
+          <option>50-74%</option>
+          <option>25-49%</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sf-defensibility">Overall Defensibility *</label>
+        <select id="sf-defensibility" required>
+          <option value="" disabled selected>Select defensibility level</option>
+          <option>Very High</option>
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary">Open on GitHub &rarr;</button>
+    </form>
   </div>
 </div>
 
@@ -1195,6 +1373,59 @@
   }
 
   loadIdeas();
+
+  // Submit form modal
+  const submitModal = document.getElementById('submit-modal');
+
+  function openSubmitModal() {
+    submitModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSubmitModal() {
+    submitModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  submitModal.addEventListener('click', (e) => {
+    if (e.target === submitModal) closeSubmitModal();
+  });
+
+  submitModal.querySelector('.modal-close').addEventListener('click', closeSubmitModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && submitModal.classList.contains('active')) closeSubmitModal();
+  });
+
+  document.getElementById('submit-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById('sf-title').value;
+    const category = document.getElementById('sf-category').value;
+    const description = document.getElementById('sf-description').value;
+    const improvement = document.getElementById('sf-improvement').value;
+    const viability = document.getElementById('sf-viability').value;
+    const defensibility = document.getElementById('sf-defensibility').value;
+
+    const moats = [...document.querySelectorAll('input[name="moats"]:checked')]
+      .map(cb => cb.value);
+
+    const params = new URLSearchParams();
+    params.set('template', 'idea.yml');
+    params.set('title', title);
+    params.set('category', category);
+    params.set('description', description);
+    params.set('improvement', improvement);
+    params.set('viability', viability);
+    params.set('defensibility', defensibility);
+
+    if (moats.length > 0) {
+      moats.forEach(m => params.append('moats[]', m));
+    }
+
+    const url = 'https://github.com/shivankar-madaan/notbuiltyet/issues/new?' + params.toString();
+    window.open(url, '_blank');
+  });
 </script>
 
 </body>
