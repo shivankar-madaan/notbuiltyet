@@ -1,10 +1,49 @@
 {
   "stats": {
-    "vetted": 4,
+    "vetted": 5,
     "beingBuilt": 0,
     "launched": 0
   },
   "ideas": [
+    {
+      "id": 5,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/5",
+      "title": "AI-Powered Road Infrastructure Accountability Platform for India",
+      "category": "Infrastructure",
+      "categoryClass": "tag-infra",
+      "description": {
+        "problem": "Government road projects suffer from opacity at every stage. Funds are sanctioned but roads remain unbuilt. Tar roads are logged on paper but the...",
+        "solution": "An AI platform that cross-references two data layers: Satellite/Street-level imagery analysis — Using multispectral satellite imagery (e.g.,...",
+        "why": ""
+      },
+      "fullDescription": {
+        "problem": "Government road projects suffer from opacity at every stage. Funds are sanctioned but roads remain unbuilt. Tar roads are logged on paper but the ground shows mud. Potholes persist months after \"maintenance\" budgets are spent. Safety infrastructure (railings, street lights) is funded but missing. Citizens and auditors have no scalable way to verify ground reality against government records.",
+        "solution": "An AI platform that cross-references two data layers: Satellite/Street-level imagery analysis — Using multispectral satellite imagery (e.g., Sentinel-2, ISRO's Cartosat) to classify road surfaces. Tar/cement roads have distinct spectral signatures vs mud/unpaved surfaces. Change detection over time reveals whether construction actually occurred. Street-level imagery (Google Street View, Mapillary, or crowdsourced dashcam footage) adds detail for pothole detection, railing presence, and lighting infrastructure. Government sanction/expenditure data — Scraped from public sources like OMMAS (Online Management, Monitoring and Accounting System for PMGSY), state PWD portals, RTI responses, and GeM (Government e-Marketplace) procurement records. Maps sanctioned projects to GPS coordinates. The platform overlays these layers to produce a transparency heatmap: green where funds were delivered and roads built, red where money flowed but no visible construction occurred. Each road segment shows: sanction date, amount, responsible official/contractor, expected vs actual completion, and current condition score. Key detection targets: Mud Road vs Tar/Cement Road — sanctioned or not Potholes / Road quality scoring Side railings for safety Street/Highway lighting presence Feasibility notes: Satellite detection of road surfaces is proven — tar/cement vs mud has clear spectral differences (not just RGB color, but near-infrared reflectance). Research papers on this exist from IIT labs. PMGSY's OMMAS portal publishes road-wise sanction data with GPS coordinates — best starting dataset. Start with PMGSY rural roads (structured data available) before tackling state highways and urban roads.",
+        "why": ""
+      },
+      "improvement": "~80% improvement in road audit coverage — current manual audits cover <5% of sanctioned projects; satellite-based monitoring could cover nearly all",
+      "moats": [
+        {
+          "name": "Data Moat",
+          "cssClass": "moat-data"
+        },
+        {
+          "name": "Regulatory",
+          "cssClass": "moat-regulatory"
+        },
+        {
+          "name": "Domain Expertise",
+          "cssClass": "moat-domain"
+        },
+        {
+          "name": "Integration Depth",
+          "cssClass": "moat-integration"
+        }
+      ],
+      "viability": 82,
+      "defensibility": "High",
+      "votes": 0
+    },
     {
       "id": 4,
       "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/4",
