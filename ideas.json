@@ -1,10 +1,53 @@
 {
   "stats": {
-    "vetted": 5,
+    "vetted": 6,
     "beingBuilt": 0,
     "launched": 0
   },
   "ideas": [
+    {
+      "id": 6,
+      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/6",
+      "title": "AI-Powered Phononic Crystal Design Platform",
+      "category": "Infrastructure",
+      "categoryClass": "tag-infra",
+      "description": {
+        "problem": "Phononic crystals are metamaterials with periodic structures that can control mechanical waves (sound, vibration, heat) the way semiconductors...",
+        "solution": "Semiconductor manufacturing — EUV lithography machines need sub-nanometer vibration isolation. ASML's machines cost $300M+. As chip features shrink,...",
+        "why": "The bottleneck is design, not physics. The physics works — it's been demonstrated repeatedly in labs. But designing a phononic crystal for a specific..."
+      },
+      "fullDescription": {
+        "problem": "Phononic crystals are metamaterials with periodic structures that can control mechanical waves (sound, vibration, heat) the way semiconductors control electrons. They enable things that seem impossible — blocking all vibrations in a specific frequency band, steering sound around objects (acoustic cloaking), directing heat flow in one direction only. The applications are massive and growing:",
+        "solution": "Semiconductor manufacturing — EUV lithography machines need sub-nanometer vibration isolation. ASML's machines cost $300M+. As chip features shrink, vibration tolerance gets tighter. Phononic crystal vibration isolators could outperform conventional rubber/spring systems by orders of magnitude. Aerospace & defense — Helicopter cabins, submarine hulls, satellite structures — all need vibration/acoustic control. Current solutions add weight. Phononic crystals can be integrated into structural elements themselves. Chip thermal management — Moore's Law is hitting thermal walls. Phononic nanostructures can create thermal diodes (heat flows one way) and thermal waveguides (direct heat to specific paths toward heat sinks). Intel, TSMC, and Samsung are all researching this. Civil infrastructure — Seismic metamaterials. Rows of boreholes or buried structures arranged as phononic crystals can redirect seismic waves around buildings. Proof-of-concept demonstrated in France (2013) and tested in Italy. Medical ultrasound — Phononic lenses can focus ultrasound with sub-wavelength resolution, improving imaging and enabling more precise therapeutic ultrasound. 5G/6G acoustic filters — BAW/SAW filters in every smartphone are already primitive phononic devices. Next-gen telecom needs filters at higher frequencies with tighter bandwidths.",
+        "why": "The bottleneck is design, not physics. The physics works — it's been demonstrated repeatedly in labs. But designing a phononic crystal for a specific application requires solving inverse problems: \"I need to block vibrations between 50-200 Hz while remaining transparent to static loads — what geometry, material, and lattice structure achieves this?\" Currently engineers:"
+      },
+      "improvement": "~100x reduction in phononic crystal design iteration time (weeks to minutes), enabling exploration of design spaces that are currently computationally prohibitive",
+      "moats": [
+        {
+          "name": "Data Moat",
+          "cssClass": "moat-data"
+        },
+        {
+          "name": "Technical",
+          "cssClass": "moat-technical"
+        },
+        {
+          "name": "Domain Expertise",
+          "cssClass": "moat-domain"
+        },
+        {
+          "name": "First Mover",
+          "cssClass": "moat-first-mover"
+        },
+        {
+          "name": "Integration Depth",
+          "cssClass": "moat-integration"
+        }
+      ],
+      "viability": 62,
+      "defensibility": "Very High",
+      "votes": 0
+    },
     {
       "id": 5,
       "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/5",
