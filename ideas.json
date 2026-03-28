@@ -1,32 +1,10 @@
 {
   "stats": {
-    "vetted": 7,
+    "vetted": 6,
     "beingBuilt": 0,
     "launched": 0
   },
   "ideas": [
-    {
-      "id": 7,
-      "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/7",
-      "title": "Cognitive State Optimization — BCI-Powered Sleep & Performance Subscription for Elite Performers",
-      "category": "Healthcare",
-      "categoryClass": "tag-health",
-      "description": {
-        "problem": "The \"sleep economy\" sells mattresses, trackers, and supplements — passive products that monitor but don't intervene. Meanwhile, three converging...",
-        "solution": "Targeted Memory Reactivation (TMR) during REM sleep — Konkoly et al. (Feb 2026, Neuroscience of Consciousness) demonstrated that sound cues played...",
-        "why": "Consumer-grade brain-computer interfaces — Neurable (CES 2026 winner) ships BCI headphones that track cognitive states (focus, fatigue) in real-time..."
-      },
-      "fullDescription": {
-        "problem": "The \"sleep economy\" sells mattresses, trackers, and supplements — passive products that monitor but don't intervene. Meanwhile, three converging developments create an entirely new category:",
-        "solution": "Targeted Memory Reactivation (TMR) during REM sleep — Konkoly et al. (Feb 2026, Neuroscience of Consciousness) demonstrated that sound cues played during REM sleep can steer dream content toward specific unsolved problems. For participants where cue-related dreaming increased, post-sleep puzzle-solving success was significantly boosted. This is peer-reviewed, published science — not a fringe claim.",
-        "why": "Consumer-grade brain-computer interfaces — Neurable (CES 2026 winner) ships BCI headphones that track cognitive states (focus, fatigue) in real-time during waking hours. Muse sells EEG headbands ($250–$540) with sleep-stage tracking, neurofeedback, and an \"AI brain coach\" (ENSO). The hardware gap between lab-grade EEG and consumer devices is closing fast."
-      },
-      "improvement": "~2x improvement in targeted problem-solving success rates during sleep (per Konkoly et al. 2026 findings), combined with measurable gains in focus, creative output, and cognitive recovery",
-      "moats": [],
-      "viability": 62,
-      "defensibility": "Medium-High",
-      "votes": 0
-    },
     {
       "id": 6,
       "url": "https://github.com/shivankar-madaan/notbuiltyet/issues/6",
